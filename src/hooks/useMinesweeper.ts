@@ -18,7 +18,9 @@ export const useMinesweeper = (settings: GameSettings) => {
     const saved = localStorage.getItem('minesweeper_stats');
     if (saved) {
       try {
-        setStats(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setStats(parsed);
       } catch (e) {
         console.error("Failed to parse stats", e);
       }
@@ -40,22 +42,24 @@ const resetGame = useCallback((newSettings?: GameSettings) => {
 useEffect(() => {
   if (gameStatus === 'won' || gameStatus === 'lost') {
     const difficultyKey = `${settings.rows}x${settings.cols}x${settings.mines}`;
-    const newStats = { ...stats };
-
-    if (gameStatus === 'won') {
-      newStats.wins += 1;
-      const currentBest = stats.bestTimes[difficultyKey] || Infinity;
-      if (time < currentBest) {
-        newStats.bestTimes[difficultyKey] = time;
+    
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setStats(prevStats => {
+      const newStats = { ...prevStats };
+      if (gameStatus === 'won') {
+        newStats.wins += 1;
+        const currentBest = prevStats.bestTimes[difficultyKey] || Infinity;
+        if (time < currentBest) {
+          newStats.bestTimes[difficultyKey] = time;
+        }
+      } else {
+        newStats.losses += 1;
       }
-    } else {
-      newStats.losses += 1;
-    }
-
-    setStats(newStats);
-    localStorage.setItem('minesweeper_stats', JSON.stringify(newStats));
+      localStorage.setItem('minesweeper_stats', JSON.stringify(newStats));
+      return newStats;
+    });
   }
-}, [gameStatus]);
+}, [gameStatus, time, settings.rows, settings.cols, settings.mines]);
 
   // Timer effect
   useEffect(() => {
@@ -71,13 +75,13 @@ useEffect(() => {
   const onCellClick = useCallback((x: number, y: number) => {
     if (gameStatus === 'won' || gameStatus === 'lost') return;
 
-    let currentEngine = engine;
+    const currentEngine = engine;
     if (gameStatus === 'ready') {
       currentEngine.generateMines(x, y);
       setGameStatus('playing');
     }
 
-    const { status, updatedCells } = currentEngine.revealCell(x, y);
+    const { status } = currentEngine.revealCell(x, y);
     
     if (status !== 'playing') {
       setGameStatus(status);

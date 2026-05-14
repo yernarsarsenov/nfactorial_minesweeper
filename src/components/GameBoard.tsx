@@ -163,7 +163,7 @@ const GameBoard: React.FC = () => {
 
         <div className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} p-6 rounded-3xl shadow-sm border transition-all hover:shadow-md`}>
           <h3 className="text-lg font-bold mb-2">Daily</h3>
-          <p className={`text-sm mb-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Today's global seed: #2026-05-14</p>
+          <p className={`text-sm mb-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Today&apos;s global seed: #2026-05-14</p>
           <div className="mt-4 flex items-center justify-between">
             <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded">Active Now</span>
             <button className="text-sm font-bold text-gray-400 hover:text-gray-600">Leaderboard</button>

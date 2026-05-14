@@ -1,4 +1,4 @@
-import { Cell, CellStatus, GameSettings } from '../types/game';
+import { Cell, GameSettings } from '../types/game';
 
 export class MinesweeperEngine {
   private grid: Cell[][] = [];

@@ -33,7 +33,10 @@ export const useAuth = () => {
         id: 'demo-user',
         email: 'guest@nfactorial.io',
         user_metadata: { full_name: 'Guest Player', avatar_url: '' },
-      } as any);
+        app_metadata: {},
+        aud: '',
+        created_at: '',
+      } as User);
       return;
     }
 
@@ -49,7 +52,10 @@ export const useAuth = () => {
           id: 'demo-user',
           email: 'guest@nfactorial.io',
           user_metadata: { full_name: 'Guest Player (Demo)', avatar_url: '' },
-        } as any);
+          app_metadata: {},
+          aud: '',
+          created_at: '',
+        } as User);
       }
     }
   };

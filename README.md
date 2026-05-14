@@ -1,6 +1,6 @@
 # DataMine
 
-[Проект](https://nfactorial-minesweeper.vercel.app/)
+[Проект](https://nfactorialminesweeperpro.vercel.app)
 
 ---
 
